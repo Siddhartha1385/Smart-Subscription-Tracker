@@ -39,6 +39,9 @@ app.use("/api/auth", authroutes);
 app.use("/api/subscriptions", subscriptionroutes);
 app.use("/api/reminders", reminderroutes);
 app.use("/api/test-email", testEmailRoutes);
+app.get('/ping', (req, res) => {
+  res.status(200).send('Server is awake');
+});
 
 // ------------------------------
 // Start server AFTER MongoDB

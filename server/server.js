@@ -8,7 +8,6 @@ dotenv.config();           // MUST be first
 console.log("DEBUG HOST:", process.env.EMAIL_HOST);
 console.log("DEBUG USER:", process.env.EMAIL_USER);
 
-
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -23,8 +22,20 @@ import startReminderCron from "./cron/remindercron.js";
 
 const app = express();
 
-// Middlewares
-app.use(cors({ origin: "*", credentials: true }));
+// ------------------------------
+// ✅ CORS CONFIGURATION (The Fix)
+// ------------------------------
+app.use(cors({
+  origin: [
+    "http://localhost:5173",                                      // Localhost
+    "https://smart-subscription-tracker-eight.vercel.app",        // Your specific Vercel domain from the error
+    "https://smart-subscription-tracker.vercel.app"               // Main Vercel alias
+  ],
+  credentials: true, // Allow cookies/headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json({ limit: "1mb" }));
 
 // Basic test route
@@ -39,6 +50,8 @@ app.use("/api/auth", authroutes);
 app.use("/api/subscriptions", subscriptionroutes);
 app.use("/api/reminders", reminderroutes);
 app.use("/api/test-email", testEmailRoutes);
+
+// Heartbeat route (Keep this for cron-job.org)
 app.get('/ping', (req, res) => {
   res.status(200).send('Server is awake');
 });

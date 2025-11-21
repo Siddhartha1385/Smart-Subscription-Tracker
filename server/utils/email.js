@@ -2,31 +2,36 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import path from "path";
 
-// 1. Force load .env from the current directory to ensure vars are present
-// independent of where this file is imported from.
+// 1. Load Environment Variables
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
-// 2. Debug Log to verify they are loaded
+// 2. DEBUG LOGS (Check Render logs to confirm it picked up Port 2525)
 console.log("--------------------------------");
-console.log("📧 EMAIL CONFIG DEBUG:");
+console.log("📧 EMAIL SYSTEM INITIALIZED");
 console.log("HOST:", process.env.EMAIL_HOST);
+console.log("PORT:", process.env.EMAIL_PORT); // Should say 2525
 console.log("USER:", process.env.EMAIL_USER ? "Set (Hidden)" : "MISSING");
 console.log("--------------------------------");
 
+// 3. Create Robust Transporter
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: Number(process.env.EMAIL_PORT),
-  secure: false, // true for 465, false for other ports
+  port: Number(process.env.EMAIL_PORT), 
+  secure: false, // Always false for Port 2525 or 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // 4. Timeout Settings (Prevents infinite hanging)
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
+// 5. The Reminder Function
 export async function sendReminderEmail(to, subscription) {
-  // 3. Safety Check before sending
   if (!process.env.EMAIL_HOST || !process.env.EMAIL_USER) {
-    console.error("❌ CRITICAL: Email environment variables are missing. Check .env file.");
+    console.error("❌ CRITICAL: Email environment variables are missing.");
     return false;
   }
 
@@ -46,8 +51,12 @@ export async function sendReminderEmail(to, subscription) {
     </div>
     `;
 
+    // Verify connection before sending
+    await transporter.verify();
+    console.log("✅ SMTP Connection Verified");
+
     const info = await transporter.sendMail({
-      from: `"Smart Tracker" <${process.env.EMAIL_FROM}>`,
+      from: process.env.EMAIL_FROM || '"Smart Tracker" <no-reply@smartsub.com>',
       to,
       subject: `Reminder: ${subscription.name} renews soon`,
       html: htmlContent,
@@ -56,7 +65,7 @@ export async function sendReminderEmail(to, subscription) {
     console.log("✅ Email sent successfully:", info.messageId);
     return true;
   } catch (err) {
-    console.error("❌ Email Transport Error:", err);
+    console.error("❌ Email Transport Error:", err.message);
     return false;
   }
 }

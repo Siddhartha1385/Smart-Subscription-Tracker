@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@import "./styles/theme.css";
+
+:root {
+  color-scheme: dark;
+  background: var(--color-bgmain);
+}
+
+/* Reusable glass utilities */
+.glass-card {
+  background: var(--color-glass-dark);
+  backdrop-filter: var(--backdrop-glass);
+  border-radius: var(--radius-soft);
+}
+
+.neon-text {
+  color: var(--color-neon-blue);
+}
+
+.shadow-neonblue {
+  box-shadow: var(--shadow-neonblue);
+}

@@ -1,0 +1,35 @@
+/* Pink accent + dual glow */
+
+.neon-dual {
+  box-shadow:
+    0 0 15px rgba(0, 255, 255, 0.25),
+    0 0 25px rgba(255, 0, 255, 0.35);
+}
+
+.neon-pink {
+  color: #ff5bff;
+}
+
+.border-neon-dual {
+  border: 1px solid rgba(255, 0, 255, 0.4);
+  border-radius: 16px;
+  box-shadow:
+    0 0 18px rgba(255, 0, 255, 0.25);
+}
+
+.btn-neon {
+  background: linear-gradient(to right, #5e17eb, #ff00aa);
+}
+.btn-neon:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 18px #ff00aa;
+}
+
+.glass-card-enhanced {
+  backdrop-filter: blur(14px);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 255, 0.25);
+  box-shadow:
+    0 0 12px rgba(0, 255, 255, 0.2),
+    0 0 18px rgba(255, 0, 255, 0.3);
+}

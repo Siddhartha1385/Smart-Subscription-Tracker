@@ -18,27 +18,26 @@ export default function Sidebar({ variant = "desktop", onNavigate = () => {} }) 
         bg-slate-950 border-r border-white/5
         shadow-[0_0_50px_-12px_rgba(6,182,212,0.15)] w-64 px-5 py-8 overflow-hidden relative`}
     >
-      {/* 1. INNOVATION: Cinematic Background Glow */}
+      {/* Background Glows */}
       <div className="absolute -top-24 -left-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
       <div className="absolute top-1/2 -right-24 w-48 h-48 bg-indigo-500/5 rounded-full blur-[60px] pointer-events-none" />
 
-      {/* Top brand + nav */}
+      {/* Brand + Nav */}
       <div className="relative z-10">
-        {/* Brand Header */}
+        
+        {/* --- LOGO SECTION START --- */}
         <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
-                {/* Logo */}
+                {/* 1. The Image Logo */}
                 <div className="relative w-10 h-10 shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-xl blur-[8px] opacity-60" />
-                    <div className="relative w-full h-full bg-slate-900 rounded-xl border border-white/10 flex items-center justify-center overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
-                        <span className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-tr from-cyan-200 to-blue-400 relative z-10">
-                            S
-                        </span>
-                    </div>
+                    <img 
+                        src="/logo.svg" 
+                        alt="S" 
+                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" 
+                    />
                 </div>
                 
-                {/* Text Logo */}
+                {/* 2. The Text (Beside the logo) */}
                 <div className="flex flex-col justify-center">
                     <h1 className="text-lg font-bold text-white leading-none tracking-tight">
                         Smart<span className="text-cyan-400">.</span>Sub
@@ -46,8 +45,7 @@ export default function Sidebar({ variant = "desktop", onNavigate = () => {} }) 
                 </div>
             </div>
 
-            {/* 2. INNOVATION: The "Manifesto" Layout */}
-            {/* Instead of a boring subtitle, we use a vertical 'editorial' style layout */}
+            {/* The Caption Layout */}
             <div className="flex items-center gap-3 pl-1">
                 <div className="w-0.5 h-8 bg-gradient-to-b from-cyan-500/50 to-transparent rounded-full" />
                 <div className="flex flex-col">
@@ -60,8 +58,8 @@ export default function Sidebar({ variant = "desktop", onNavigate = () => {} }) 
                 </div>
             </div>
         </div>
+        {/* --- LOGO SECTION END --- */}
 
-        {/* Navigation */}
         <nav className="space-y-2">
           {links.map((item) => {
             const Icon = item.icon;
@@ -81,11 +79,9 @@ export default function Sidebar({ variant = "desktop", onNavigate = () => {} }) 
               >
                 {({ isActive }) => (
                     <>
-                        {/* Active Glow Indicator inside the button */}
                         {isActive && (
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-400 shadow-[0_0_10px_cyan]" />
                         )}
-
                         <div className={`
                             relative z-10 flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300
                             ${isActive ? "bg-cyan-500/20 text-cyan-300" : "bg-slate-800/50 text-slate-500 group-hover:text-cyan-300 group-hover:bg-cyan-500/10"}

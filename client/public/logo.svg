@@ -1,0 +1,39 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brand_gradient" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee" /> <!-- Cyan-400 -->
+      <stop offset="1" stop-color="#3b82f6" /> <!-- Blue-500 -->
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- ABSTRACT 'S' SHAPE (Recurring Infinity Loop Style) -->
+  <!-- Top Curve -->
+  <path 
+    d="M360 160C360 110 320 70 256 70C170 70 120 130 120 190C120 280 220 290 220 330C220 350 200 370 160 370C110 370 90 330 90 330" 
+    stroke="url(#brand_gradient)" 
+    stroke-width="55" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    filter="url(#glow)"
+  />
+  <!-- Bottom Curve -->
+  <path 
+    d="M152 330C152 380 192 420 256 420C342 420 392 360 392 300C392 210 292 200 292 160C292 140 312 120 352 120C402 120 422 160 422 160" 
+    stroke="url(#brand_gradient)" 
+    stroke-width="55" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    filter="url(#glow)"
+  />
+  
+  <!-- Tech Dots (The "Smart" Nodes) -->
+  <circle cx="422" cy="160" r="18" fill="#22d3ee" filter="url(#glow)" />
+  <circle cx="90" cy="330" r="18" fill="#3b82f6" filter="url(#glow)" />
+</svg>
